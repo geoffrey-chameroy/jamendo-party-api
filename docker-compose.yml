@@ -1,0 +1,26 @@
+version: "3.5"
+
+services:
+  app:
+    image: webdevops/php-apache:7.2
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      WEB_DOCUMENT_ROOT: /srv/public
+      WEB_DOCUMENT_INDEX: index.php
+      PHP_DATE_TIMEZONE: "UTC"
+    working_dir: /srv
+    volumes:
+      - .:/srv
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: jamendo_party
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
